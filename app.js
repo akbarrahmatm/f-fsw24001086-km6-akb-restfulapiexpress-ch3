@@ -23,6 +23,16 @@ const getCars = (req, res) => {
   res.status(200).json({
     status: "Success",
     data: { cars },
+    totalData: cars.length,
+  });
+};
+
+const getCarsById = (req, res) => {
+  const id = req.params.id;
+  const car = cars.find((car) => car.id === id);
+  res.status(200).json({
+    status: "Success",
+    data: { car },
   });
 };
 
@@ -30,6 +40,8 @@ const getCars = (req, res) => {
 app.get("/", defaultRouter);
 
 app.route("/cars").get(getCars);
+
+app.route("/cars/:id").get(getCarsById);
 
 app.listen(PORT, () => {
   console.log(`Server running on : localhost:${PORT}`);
