@@ -44,10 +44,24 @@ const getCarsById = (req, res) => {
   });
 };
 
+const createCars = (req, res) => {
+  const newCar = req.body;
+  cars.push(newCar);
+  fs.writeFile(`${__dirname}/data/cars.json`, JSON.stringify(cars), (err) => {
+    res.status(201).json({
+      status: "Success",
+      message: "Data inserted successfully",
+      data: {
+        car: newCar,
+      },
+    });
+  });
+};
+
 // Router
 app.get("/", defaultRouter);
 
-app.route("/cars").get(getCars);
+app.route("/cars").get(getCars).post(createCars);
 
 app.route("/cars/:id").get(getCarsById);
 
