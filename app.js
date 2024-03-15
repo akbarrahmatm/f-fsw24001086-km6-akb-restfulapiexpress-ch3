@@ -84,12 +84,40 @@ const deleteCar = (req, res) => {
   });
 };
 
+const updateCar = (req, res) => {
+  // Get Car Id from parameter
+  const id = req.params.id;
+
+  // Get car data & car index
+  const car = cars.find((car) => car.id === id);
+  const carIndex = cars.findIndex((car) => car.id === id);
+
+  // Data existing validation
+  if (!car) {
+    return res.status(404).json({
+      status: "Failed",
+      message: `Car with ID ${id} not found`,
+    });
+  }
+
+  // Update spesific data to array
+  cars[carIndex] = { ...cars[carIndex], ...req.body };
+
+  // Write changes to cars.json
+  fs.writeFile(`${__dirname}/data/cars.json`, JSON.stringify(cars), (err) => {
+    res.status(200).json({
+      status: "Success",
+      message: "Data updated successfully",
+    });
+  });
+};
+
 // Router
 app.get("/", defaultRouter);
 
 app.route("/cars").get(getCars).post(createCars);
 
-app.route("/cars/:id").get(getCarsById).delete(deleteCar);
+app.route("/cars/:id").get(getCarsById).delete(deleteCar).put(updateCar);
 
 app.listen(PORT, () => {
   console.log(`Server running on : localhost:${PORT}`);
