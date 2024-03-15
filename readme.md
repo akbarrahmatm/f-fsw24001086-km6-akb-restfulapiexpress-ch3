@@ -46,4 +46,4 @@ Create RESTFUL API using express.js that implement GET, POST, PUT, DELETE http r
 
 ## Postman Preview
 
-[Documentation Preview](https://www.postman.com/akbarrahmatm/workspace/km6-binar-academy-akbar-rahmat-mulyatama/collection/22728093-ec7c0aa7-8704-4cf4-84be-5a603ba527c6?action=share&creator=22728093)
+[Documentation Preview](https://www.postman.com/akbarrahmatm/workspace/km6-binar-academy-akbar-rahmat-mulyatama/collection/22728093-9b631e58-d6fe-496d-be01-91c8fa87d952?action=share&creator=22728093)
