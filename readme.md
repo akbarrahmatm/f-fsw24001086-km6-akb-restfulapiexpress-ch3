@@ -26,19 +26,19 @@ Create RESTFUL API using express.js that implement GET, POST, PUT, DELETE http r
   GET /cars/:id
 ```
 
-#### Create car (On Progress)
+#### Create car
 
 ```http
   POST /cars
 ```
 
-#### Update car (On Progress)
+#### Update car
 
 ```http
   PUT /cars/:id
 ```
 
-#### Delete car (On Progress)
+#### Delete car
 
 ```http
   DELETE /cars/:id
