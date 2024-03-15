@@ -23,8 +23,8 @@ const getCars = (req, res) => {
   res.status(200).json({
     status: "Success",
     message: "Data retrieved successfully",
-    data: { cars },
     totalData: cars.length,
+    data: { cars },
   });
 };
 
@@ -50,10 +50,36 @@ const createCars = (req, res) => {
   fs.writeFile(`${__dirname}/data/cars.json`, JSON.stringify(cars), (err) => {
     res.status(201).json({
       status: "Success",
-      message: "Data inserted successfully",
+      message: "Data created successfully",
       data: {
         car: newCar,
       },
+    });
+  });
+};
+
+const deleteCar = (req, res) => {
+  const id = req.params.id;
+
+  const car = cars.find((car) => car.id === id);
+  const carIndex = cars.findIndex((car) => car.id === id);
+
+  // Data existing validation
+  if (!car) {
+    return res.status(404).json({
+      status: "Failed",
+      message: `Car with ID ${id} not found`,
+    });
+  }
+
+  // Delete spesific data in array by index
+  cars.splice(carIndex, 1);
+
+  // Write changes to cars.json
+  fs.writeFile(`${__dirname}/data/cars.json`, JSON.stringify(cars), (err) => {
+    res.status(200).json({
+      status: "Success",
+      message: "Data deleted successfully",
     });
   });
 };
@@ -63,7 +89,7 @@ app.get("/", defaultRouter);
 
 app.route("/cars").get(getCars).post(createCars);
 
-app.route("/cars/:id").get(getCarsById);
+app.route("/cars/:id").get(getCarsById).delete(deleteCar);
 
 app.listen(PORT, () => {
   console.log(`Server running on : localhost:${PORT}`);
