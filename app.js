@@ -22,6 +22,7 @@ const defaultRouter = (req, res) => {
 const getCars = (req, res) => {
   res.status(200).json({
     status: "Success",
+    message: "Data retrieved successfully",
     data: { cars },
     totalData: cars.length,
   });
@@ -30,8 +31,15 @@ const getCars = (req, res) => {
 const getCarsById = (req, res) => {
   const id = req.params.id;
   const car = cars.find((car) => car.id === id);
+  if (!car) {
+    return res.status(404).json({
+      status: "Failed",
+      message: `Car with ID ${id} not found`,
+    });
+  }
   res.status(200).json({
     status: "Success",
+    message: "Data retrieved successfully",
     data: { car },
   });
 };
