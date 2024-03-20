@@ -1,3 +1,4 @@
+const e = require("express");
 const fs = require("fs");
 
 // Cars data
@@ -32,6 +33,17 @@ const getCarsById = (req, res) => {
 
 const createCars = (req, res) => {
   const newCar = req.body;
+
+  const car = cars.find((car) => car.id === newCar.id);
+
+  // If car with same ID exist, data won't created
+  if (car) {
+    return res.status(409).json({
+      status: "Failed",
+      message: `Data with ID '${newCar.id}' is already exist`,
+    });
+  }
+
   cars.push(newCar);
   fs.writeFile(`${__dirname}/data/cars.json`, JSON.stringify(cars), (err) => {
     res.status(201).json({
